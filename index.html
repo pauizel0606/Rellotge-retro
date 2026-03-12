@@ -2,41 +2,105 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Retro Digital Clock</title>
+<title>Windows 95 Clock</title>
 
 <style>
 
 body{
-    background:#000;
-    color:#00ff9c;
-    font-family:"Courier New", monospace;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+background:#008080;
+font-family:Tahoma, sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-.clock-container{
-    text-align:center;
-    border:4px solid #00ff9c;
-    padding:40px;
-    border-radius:12px;
-    box-shadow:0 0 25px #00ff9c44;
+/* ventana estilo windows */
+
+.window{
+width:320px;
+background:#c0c0c0;
+border-top:3px solid white;
+border-left:3px solid white;
+border-right:3px solid #404040;
+border-bottom:3px solid #404040;
+box-shadow:3px 3px 0 #000;
 }
 
-.title{
-    font-size:20px;
-    margin-bottom:20px;
+/* barra superior */
+
+.title-bar{
+background:linear-gradient(to right,#000080,#1084d0);
+color:white;
+padding:5px;
+font-weight:bold;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:14px;
 }
+
+.buttons{
+display:flex;
+gap:4px;
+}
+
+.btn{
+width:16px;
+height:16px;
+background:#c0c0c0;
+border-top:2px solid white;
+border-left:2px solid white;
+border-right:2px solid #404040;
+border-bottom:2px solid #404040;
+}
+
+/* contenido */
+
+.content{
+padding:20px;
+text-align:center;
+}
+
+/* pantalla reloj */
 
 .clock{
-    font-size:70px;
-    letter-spacing:5px;
+background:black;
+color:#00ff00;
+font-family:"Courier New", monospace;
+font-size:40px;
+padding:10px;
+border-top:3px solid #404040;
+border-left:3px solid #404040;
+border-right:3px solid white;
+border-bottom:3px solid white;
+margin-bottom:15px;
 }
 
+/* fecha */
+
 .date{
-    margin-top:15px;
-    font-size:18px;
+font-size:14px;
+margin-bottom:15px;
+}
+
+/* boton estilo windows */
+
+button{
+background:#c0c0c0;
+padding:6px 15px;
+border-top:2px solid white;
+border-left:2px solid white;
+border-right:2px solid #404040;
+border-bottom:2px solid #404040;
+cursor:pointer;
+}
+
+button:active{
+border-top:2px solid #404040;
+border-left:2px solid #404040;
+border-right:2px solid white;
+border-bottom:2px solid white;
 }
 
 </style>
@@ -44,13 +108,30 @@ body{
 
 <body>
 
-<div class="clock-container">
+<div class="window">
 
-<div class="title">RETRO DIGITAL CLOCK</div>
+<div class="title-bar">
+<span>Clock.exe</span>
 
-<div id="clock" class="clock">00:00:00</div>
+<div class="buttons">
+<div class="btn"></div>
+<div class="btn"></div>
+<div class="btn"></div>
+</div>
+
+</div>
+
+<div class="content">
+
+<div id="clock" class="clock">
+00:00:00
+</div>
 
 <div id="date" class="date"></div>
+
+<button onclick="updateClock()">Actualizar</button>
+
+</div>
 
 </div>
 
@@ -60,18 +141,15 @@ function updateClock(){
 
 let now = new Date()
 
-let hours = now.getHours().toString().padStart(2,"0")
-let minutes = now.getMinutes().toString().padStart(2,"0")
-let seconds = now.getSeconds().toString().padStart(2,"0")
+let hours = String(now.getHours()).padStart(2,"0")
+let minutes = String(now.getMinutes()).padStart(2,"0")
+let seconds = String(now.getSeconds()).padStart(2,"0")
 
-let time = hours + ":" + minutes + ":" + seconds
-
-document.getElementById("clock").innerText = time
-
-let options = { weekday:"long", year:"numeric", month:"long", day:"numeric" }
+document.getElementById("clock").innerText =
+hours + ":" + minutes + ":" + seconds
 
 document.getElementById("date").innerText =
-now.toLocaleDateString("es-ES",options)
+now.toLocaleDateString()
 
 }
 
